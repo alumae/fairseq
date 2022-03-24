@@ -115,7 +115,7 @@ def get_zip_manifest(
     paths, lengths = {}, {}
     for i in tqdm(info):
         utt_id = Path(i.filename).stem
-        offset, file_size = i.header_offset + 30 + len(i.filename), i.file_size
+        offset, file_size = i.header_offset + 30 + len(bytes(i.filename, 'utf8')), i.file_size
         paths[utt_id] = f"{zip_path.as_posix()}:{offset}:{file_size}"
         with open(_zip_path, "rb") as f:
             f.seek(offset)
